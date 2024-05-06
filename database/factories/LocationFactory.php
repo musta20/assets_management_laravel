@@ -16,12 +16,14 @@ class LocationFactory extends Factory
      */
     public function definition(): array
     {
+        
         return [
             'name' => $this->faker->city(),
             'description' => $this->faker->sentence(),
             'address' => $this->faker->streetAddress(),
             'site' => $this->faker->company(),
-            'department' => $this->faker->departmentName(),
+            'department' => $this->faker->word(),
         ];
+
     }
 }

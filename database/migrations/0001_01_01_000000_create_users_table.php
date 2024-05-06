@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreignUlid('department_id')->nullable()->constrained(); // Add foreign key for department
+
             $table->rememberToken();
             $table->timestamps();
         });

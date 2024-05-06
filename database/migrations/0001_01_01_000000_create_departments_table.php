@@ -15,6 +15,7 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->string('name'); // Department name
             $table->text('description')->nullable(); // Optional description
+            $table->softDeletes();
             $table->timestamps();
         });
     }
