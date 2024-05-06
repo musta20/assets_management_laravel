@@ -18,7 +18,7 @@ CleanTest:
 	php artisan test && rm -rf storage/tenant* &&  rm -rf storage/app/*
 
 fresh: 
-	 php artisan migrate:fresh --seed 
+	rm -rf storage/app/asset/* && php artisan migrate:fresh --seed 
 
 clear: 
 	php artisan cache:clear && php artisan config:clear &&  php artisan config:clear &&  composer dump-autoload -o && php artisan view:clear 
