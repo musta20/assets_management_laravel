@@ -26,23 +26,24 @@ class AssetSeeder extends Seeder
 
         $AssetsArray = SeederDataSet::AssetsArray();
 
-        $recordNumber = 50;
+        $assets = $this->createAssetsRecords(50, $AssetsArray, $Venor, $Locations, $Category);
 
-        $assets = $this->createAssetsRecords($recordNumber, $AssetsArray, $Venor, $Locations, $Category);
-
-        Asset::factory()->sequence(fn (Sequence $sequence) => $assets[$sequence->index])->create();
-
+        Asset::factory()
+        ->count(count($assets))
+        ->sequence(fn (Sequence $sequence) => $assets[$sequence->index])
+        ->create();
 
         //Asset::factory(10)->create();
+
     }
 
     private function createAssetsRecords(int $recordNumber,array $AssetsArray, Collection $vendor, Collection $location, Collection $category): array
     {
         $assets = [];
 
-        $asset = $AssetsArray[array_rand($AssetsArray)];
 
         for ($recordNumber; $recordNumber > 0; $recordNumber--) {
+            $asset = $AssetsArray[array_rand($AssetsArray)];
 
             $assets[] = [
                 'name' => $asset['name'],

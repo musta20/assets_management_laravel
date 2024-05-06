@@ -17,7 +17,7 @@ class AssetResource extends Resource
 {
     protected static ?string $model = Asset::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
     public static function form(Form $form): Form
     {
@@ -65,18 +65,21 @@ class AssetResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
+   
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category_id')
+                Tables\Columns\TextColumn::make('category.name')
+                    ->label('Category')
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('location_id')
+                Tables\Columns\TextColumn::make('location.name')
+                ->label('Location')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('vendor_id')
+                Tables\Columns\TextColumn::make('vendor.name')
                     ->searchable(),
+             
                 Tables\Columns\TextColumn::make('status')
+                
                     ->searchable(),
                 Tables\Columns\TextColumn::make('purchase_date')
                     ->date()

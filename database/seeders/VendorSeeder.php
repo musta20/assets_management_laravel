@@ -16,7 +16,6 @@ class VendorSeeder extends Seeder
     {
         $arrayVendor = SeederDataSet::VenderBrandsArray();
 
-
             Vendor::factory()
             ->count(count($arrayVendor))
             ->sequence(fn (Sequence $sequence) => $arrayVendor[$sequence->index])
