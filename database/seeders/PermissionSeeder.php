@@ -20,6 +20,8 @@ class PermissionSeeder extends Seeder
 
         $Employee = Role::create(['name' => UserRole::EMPLOYEE->value]);
 
+        $Technician = Role::create(['name' => UserRole::TECHNICIAN->value]);
+
 
  
     }

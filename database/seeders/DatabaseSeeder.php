@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             VendorSeeder::class,
             AssetSeeder::class,
-            AssetsMediaSeeder::class
+            AssetsMediaSeeder::class,
+            MaintenancesSeeder::class
         ]);
 
     }
