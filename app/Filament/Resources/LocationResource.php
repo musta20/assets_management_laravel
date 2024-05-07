@@ -41,15 +41,12 @@ class LocationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
+       
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('site')
-                    ->searchable(),
+              
                 Tables\Columns\TextColumn::make('department')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deleted_at')

@@ -35,6 +35,13 @@ class UserFactory extends Factory
         ];
     }
 
+    public function withDepartment($departmentId): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'department_id' => $departmentId,
+        ]);
+    }
+
     /**
      * Indicate that the model's email address should be unverified.
      */

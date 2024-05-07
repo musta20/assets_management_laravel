@@ -16,7 +16,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $department  = Department::where('name', 'المديرية العامة')->firstOrFail();
-         
+        $ItDepartment = Department::where('name', 'تقنية المعلومات')->firstOrFail();
+        $allDeoartment = Department::get();
+
         $admin = User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
@@ -28,9 +30,10 @@ class UserSeeder extends Seeder
         $adminRole = Role::findByName(UserRole::ADMIN->value);
 
         $admin->assignRole($adminRole);
-        User::factory()->count(10)->withRole(UserRole::EMPLOYEE->value)->create();
-        User::factory()->count(10)->withRole(UserRole::MANAGER->value)->create();
-        User::factory()->count(10)->withRole(UserRole::TECHNICIAN->value)->create();
+
+        User::factory()->count(10)->withDepartment($allDeoartment->random()->id)->withRole(UserRole::EMPLOYEE->value)->create();
+        User::factory()->count(10)->withDepartment($allDeoartment->random()->id)->withRole(UserRole::MANAGER->value)->create();
+        User::factory()->count(10)->withDepartment($ItDepartment->id)->withRole(UserRole::TECHNICIAN->value)->create();
 
     }
 }
