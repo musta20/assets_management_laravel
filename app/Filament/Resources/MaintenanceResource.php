@@ -6,6 +6,10 @@ use App\Filament\Resources\MaintenanceResource\Pages;
 use App\Filament\Resources\MaintenanceResource\RelationManagers;
 use App\Models\Maintenance;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -24,20 +28,26 @@ class MaintenanceResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('asset_id')
+                TextInput::make('asset_id')
                     ->required()
                     ->maxLength(26),
-                Forms\Components\DatePicker::make('date')
+                DatePicker::make('date')
                     ->required(),
-                Forms\Components\TextInput::make('type')
+                TextInput::make('type')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                Textarea::make('description')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('technician_id')
-                    ->required()
-                    ->maxLength(26),
-                Forms\Components\TextInput::make('cost')
+
+                    
+
+                    Select::make('technician')
+                    ->relationship('technician', 'name')
+                    ->searchable()
+                    ->preload(),
+
+
+                TextInput::make('cost')
                     ->numeric()
                     ->prefix('$'),
             ]);
