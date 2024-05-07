@@ -1,14 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Enums;
 
-enum AssetsStatus: string
+
+enum  DepreciationMethod  :string
 {
-    case in_use = 'in_use';
-    case maintenance = 'maintenance';
-    case disposed = 'disposed';
+     case STRAIGHTLINE = 'straight-line';
+     case DECLININGBALANCE = 'declining-balance';
 
-
-    
     /**
      * Get all constants in a name => value array
      *
@@ -20,9 +21,7 @@ enum AssetsStatus: string
             return [$value->value => $value->name];
         })->toArray());
     }
-
 }
-
 
 
 ?>

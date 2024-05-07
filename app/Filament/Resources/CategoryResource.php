@@ -37,12 +37,10 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
+   
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('parent_id')
+                Tables\Columns\TextColumn::make('parent.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()

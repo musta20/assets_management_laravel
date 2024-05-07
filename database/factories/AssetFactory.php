@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\AssetsStatus;
+use App\Enums\DepreciationMethod;
 use App\Enums\ItemType;
 use App\Models\Category;
 use App\Models\Location;
@@ -33,7 +34,7 @@ class AssetFactory extends Factory
             'purchase_price' => $this->faker->randomFloat(2, 100, 10000),
             'serial_number' => $this->faker->randomNumber(9),
             'warranty_information' => $this->faker->sentence(),
-            'depreciation_method' => $this->faker->randomElement(['straight-line', 'declining-balance']),
+            'depreciation_method' => $this->faker->randomElement(DepreciationMethod::cases()),
         ];
     }
 }

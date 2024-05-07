@@ -46,17 +46,14 @@ class MaintenanceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('asset_id')
+                Tables\Columns\TextColumn::make('technician.name')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('asset.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('date')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('type')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('technician_id')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cost')
                     ->money()

@@ -2,13 +2,24 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\AssetsStatus;
+use App\Enums\DepreciationMethod;
+use App\Enums\ItemType;
 use App\Filament\Resources\AssetResource\Pages;
 use App\Filament\Resources\AssetResource\RelationManagers;
 use App\Models\Asset;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\SelectColumn;
+use Filament\Tables\Columns\SelectColumn as ColumnsSelectColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -21,42 +32,54 @@ class AssetResource extends Resource
 
     public static function form(Form $form): Form
     {
+
+
+
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                Textarea::make('description')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('category_id')
-                    ->required()
-                    ->maxLength(26),
-                Forms\Components\TextInput::make('location_id')
-                    ->required()
-                    ->maxLength(26),
-                Forms\Components\TextInput::make('vendor_id')
-                    ->required()
-                    ->maxLength(26),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255)
-                    ->default('in_use'),
-                Forms\Components\DatePicker::make('purchase_date')
+
+                Select::make('category')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload(),
+
+                Select::make('location')
+                    ->relationship('location', 'name')
+                    ->searchable()
+                    ->preload(),
+                Select::make('vendor')
+                    ->relationship('vendor', 'name')
+                    ->searchable()
+                    ->preload(),
+
+                Select::make('status')
+                    ->options(AssetsStatus::getValuesAsArray()),
+
+
+                DatePicker::make('purchase_date')
                     ->required(),
-                Forms\Components\TextInput::make('item_type')
-                    ->required()
-                    ->maxLength(255)
-                    ->default('physical'),
-                Forms\Components\TextInput::make('purchase_price')
+                Select::make('item_type')
+                    ->options(ItemType::getValuesAsArray()),
+
+                TextInput::make('purchase_price')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('serial_number')
+                TextInput::make('serial_number')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('warranty_information')
+                TextInput::make('warranty_information')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('depreciation_method')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('barcode')
+                    Select::make('depreciation_method')
+                    ->options(DepreciationMethod::getValuesAsArray()),
+
+
+            
+
+                TextInput::make('barcode')
                     ->maxLength(255),
             ]);
     }
@@ -65,47 +88,47 @@ class AssetResource extends Resource
     {
         return $table
             ->columns([
-   
-                Tables\Columns\TextColumn::make('name')
+
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category.name')
+                TextColumn::make('category.name')
                     ->label('Category')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('location.name')
-                ->label('Location')
+                TextColumn::make('location.name')
+                    ->label('Location')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('vendor.name')
+                TextColumn::make('vendor.name')
                     ->searchable(),
-             
-                Tables\Columns\TextColumn::make('status')
-                
+
+                TextColumn::make('status')
+
                     ->searchable(),
-                Tables\Columns\TextColumn::make('purchase_date')
+                TextColumn::make('purchase_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('item_type')
+                TextColumn::make('item_type')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('purchase_price')
+                TextColumn::make('purchase_price')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('serial_number')
+                TextColumn::make('serial_number')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('warranty_information')
+                TextColumn::make('warranty_information')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('depreciation_method')
+                TextColumn::make('depreciation_method')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('barcode')
+                TextColumn::make('barcode')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('deleted_at')
+                TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
