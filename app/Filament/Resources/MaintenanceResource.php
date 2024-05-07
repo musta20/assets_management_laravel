@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,27 +47,27 @@ class MaintenanceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('technician.name')
+                TextColumn::make('technician.name')
                 ->searchable(),
-                Tables\Columns\TextColumn::make('asset.name')
+                TextColumn::make('asset.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('date')
+                TextColumn::make('date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('type')
+                TextColumn::make('type')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('cost')
+                TextColumn::make('cost')
                     ->money()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
+                TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

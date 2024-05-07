@@ -6,9 +6,13 @@ use App\Filament\Resources\LocationResource\Pages;
 use App\Filament\Resources\LocationResource\RelationManagers;
 use App\Models\Location;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,17 +27,16 @@ class LocationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                Textarea::make('description')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('address')
+                TextInput::make('address')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('site')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('department')
-                    ->maxLength(255),
+       
+
+             
             ]);
     }
 
@@ -42,22 +45,21 @@ class LocationResource extends Resource
         return $table
             ->columns([
        
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('address')
+                TextColumn::make('address')
                     ->searchable(),
               
-                Tables\Columns\TextColumn::make('department')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('deleted_at')
+  
+                TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

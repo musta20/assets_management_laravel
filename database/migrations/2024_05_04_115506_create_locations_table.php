@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('name'); // Location name
             $table->text('description')->nullable(); // Optional description
             $table->string('address')->nullable(); // Optional address
-            $table->string('site')->nullable(); // Optional site name
-            $table->string('department')->nullable(); // Optional department name
             $table->softDeletes(); 
             $table->timestamps();// created_at and updated_at timestamps
         });

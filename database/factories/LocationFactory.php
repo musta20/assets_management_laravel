@@ -21,8 +21,6 @@ class LocationFactory extends Factory
             'name' => $this->faker->city(),
             'description' => $this->faker->sentence(),
             'address' => $this->faker->streetAddress(),
-            'site' => $this->faker->company(),
-            'department' => $this->faker->word(),
         ];
 
     }

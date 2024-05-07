@@ -84,29 +84,25 @@ class SeederDataSet
                 "name" => "المركز الرئيسي",
                 "description" => "المركز الرئيسي",
                 "address" => "العلمية الشرقية شارع الملك سعد بجداد",
-                "site" => "www.example.com",
-                "department" => "المديرية العامة",
+         
             ],
             [
                 "name" => "المركز الأساق",
                 "description" => "المركز الأساق",
                 "address" => "العلمية الشرقية شارع الملك سعد بجداد",
-                "site" => "www.example.com",
-                "department" => "المديرية المالية",
+          
             ],
             [
                 "name" => "المركز التسويقي",
                 "description" => "المركز التسويقي",
                 "address" => "العلمية الشرقية شارع الملك سعد بجداد",
-                "site" => "www.example.com",
-                "department" => "المديرية التسويقية",
+               
             ],
             [
                 "name" => "المركز الموظفين",
                 "description" => "المركز الموظفين",
                 "address" => "العلمية الغربية شارع الهرم ",
-                "site" => "www.example.com",
-                "department" => "المديرية التسويقية",
+           
             ]
 
         ];
