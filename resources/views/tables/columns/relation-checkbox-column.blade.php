@@ -1,0 +1,3 @@
+<div>
+    {{ $cState()->name }}
+</div>
