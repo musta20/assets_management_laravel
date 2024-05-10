@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Kenepa\TranslationManager\TranslationManagerPlugin;
 
@@ -32,6 +33,10 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+
+            ->brandLogo(Vite::asset('resources/images/logo.svg'))
+            ->favicon(Vite::asset('resources/images/logo.svg'))
+
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
             ->plugin(TranslationManagerPlugin::make())
