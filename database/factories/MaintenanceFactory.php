@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\MaintenanceType;
 use App\Models\Asset;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,7 +22,7 @@ class MaintenanceFactory extends Factory
         return [
             'asset_id' => Asset::factory(),
             'date' => $this->faker->date(),
-            'type' => $this->faker->randomElement(['preventive', 'corrective']),
+            'type' => $this->faker->randomElement(MaintenanceType::cases()),
             'description' => $this->faker->sentence(),
             'technician_id' => User::factory(),
             'cost' => $this->faker->randomFloat(2, 10, 500),

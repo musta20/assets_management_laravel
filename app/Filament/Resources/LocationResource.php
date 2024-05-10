@@ -27,11 +27,14 @@ class LocationResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->label(__('name'))
                     ->required()
                     ->maxLength(255),
                 Textarea::make('description')
+                    ->label(__('description'))
                     ->columnSpanFull(),
                 TextInput::make('address')
+                    ->label(__('address'))
                     ->maxLength(255),
        
 
@@ -45,20 +48,25 @@ class LocationResource extends Resource
             ->columns([
        
                 TextColumn::make('name')
+                    ->label(__('name'))
                     ->searchable(),
                 TextColumn::make('address')
+                    ->label(__('address'))
                     ->searchable(),
               
   
                 TextColumn::make('deleted_at')
+                    ->label(__('deleted'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
+                    ->label(__('created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label(__('updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

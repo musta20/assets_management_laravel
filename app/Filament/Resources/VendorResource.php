@@ -6,6 +6,7 @@ use App\Filament\Resources\VendorResource\Pages;
 use App\Filament\Resources\VendorResource\RelationManagers;
 use App\Models\Vendor;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -23,18 +24,23 @@ class VendorResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('contact_person')
+                TextInput::make('contact_person')
+                    ->label(__('Contact Person'))
                     ->maxLength(255),
-                Forms\Components\TextInput::make('phone_number')
+                TextInput::make('phone_number')
+                    ->label(__('Phone number'))
                     ->tel()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
+                    ->label(__('Email'))
                     ->email()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('address')
+                TextInput::make('address')
+                    ->label(__('address'))
                     ->maxLength(255),
             ]);
     }
@@ -46,14 +52,19 @@ class VendorResource extends Resource
     
                
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('contact_person')
+                    ->label(__('Contact Person'))
                     ->searchable(),
                 TextColumn::make('phone_number')
+                    ->label(__('Phone number'))
                     ->searchable(),
                 TextColumn::make('email')
+                    ->label(__('Email'))
                     ->searchable(),
                 TextColumn::make('address')
+                    ->label(__('address'))
                     ->searchable(),
                 TextColumn::make('deleted_at')
                     ->dateTime()

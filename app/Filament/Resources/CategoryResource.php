@@ -6,8 +6,12 @@ use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -22,13 +26,20 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
+                    ->label(__('title'))
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                Textarea::make('description')
+                    ->label(__('description'))
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('parent_id')
-                    ->maxLength(26),
+                Select::make('category')
+                    ->label(__('Category'))
+                    ->relationship('parent', 'name')
+                    ->searchable()
+                    ->preload(),
+
+
             ]);
     }
 
@@ -36,20 +47,25 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-   
-                Tables\Columns\TextColumn::make('name')
+
+                TextColumn::make('name')
+                    ->label(__('title'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('parent.name')
+                TextColumn::make('parent.name')
+                    ->label(__('parent category'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('deleted_at')
+                TextColumn::make('deleted_at')
+                    ->label(__('deleted'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
+                    ->label(__('created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
+                    ->label(__('updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

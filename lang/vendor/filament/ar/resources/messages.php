@@ -9,7 +9,7 @@ return [
     ,
     'asset' => [
         "singular" => "عهدة",
-        'plural' => 'عهدات',
+        'plural' => 'العُهْدات',
     ],
     'department' => [
         "singular" => "قسم",

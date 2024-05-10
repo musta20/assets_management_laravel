@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\MaintenanceType;
 use App\Filament\Resources\MaintenanceResource\Pages;
 use App\Filament\Resources\MaintenanceResource\RelationManagers;
 use App\Models\Maintenance;
@@ -27,26 +28,33 @@ class MaintenanceResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('asset_id')
-                    ->required()
-                    ->maxLength(26),
+                Select::make('asset')
+                ->label(__('asset'))
+                ->relationship('asset', 'name')
+                ->searchable()
+                ->preload(),
+                Select::make('type')
+                ->label(__('Maintenance type'))
+                ->options(MaintenanceType::getValuesAsArray()),
                 DatePicker::make('date')
+                    ->label(__('date'))
                     ->required(),
-                TextInput::make('type')
-                    ->required()
-                    ->maxLength(255),
+     
                 Textarea::make('description')
+                    ->label(__('description'))
                     ->columnSpanFull(),
 
                     
 
                     Select::make('technician')
+                    ->label(__('technician'))
                     ->relationship('technician', 'name')
                     ->searchable()
                     ->preload(),
 
 
                 TextInput::make('cost')
+                    ->label(__('cost'))
                     ->numeric()
                     ->prefix('$'),
             ]);
@@ -57,26 +65,35 @@ class MaintenanceResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('technician.name')
+                ->label(__('technician'))
                 ->searchable(),
                 TextColumn::make('asset.name')
+                    ->label(__('asset'))
                     ->searchable(),
                 TextColumn::make('date')
+                    ->label(__('date'))
                     ->date()
                     ->sortable(),
                 TextColumn::make('type')
+                    ->label(__('Maintenance type'))
+                    ->formatStateUsing(fn (string $state): string => __($state))
                     ->searchable(),
                 TextColumn::make('cost')
+                    ->label(__('cost'))
                     ->money()
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label(__('created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label(__('updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('deleted_at')
+                    ->label(__('deleted'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

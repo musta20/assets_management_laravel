@@ -1,14 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Enums;
 
-enum AssetsStatus: string
+
+enum  MaintenanceType  :string
 {
-    case in_use = 'in_use';
-    case maintenance = 'maintenance';
-    case disposed = 'disposed';
-
-
-    
+     case CORRECTIVE = 'corrective';
+     case PREVENTIVE = 'preventive';
+         
     /**
      * Get all constants in a name => value array
      *
@@ -20,9 +21,7 @@ enum AssetsStatus: string
             return [__($value->value) => $value->name];
         })->toArray());
     }
-
 }
-
 
 
 ?>

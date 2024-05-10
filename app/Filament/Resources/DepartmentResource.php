@@ -27,8 +27,10 @@ class DepartmentResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
+                    ->label(__('title'))
                     ->maxLength(255),
                 Textarea::make('description')
+                    ->label(__('description'))
                     ->columnSpanFull(),
             ]);
     }
@@ -39,16 +41,21 @@ class DepartmentResource extends Resource
             ->columns([
 
                 TextColumn::make('name')
+                ->label(__('title'))
                     ->searchable(),
+
                 TextColumn::make('deleted_at')
+                    ->label(__('deleted'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
+                    ->label(__('created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label(__('updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

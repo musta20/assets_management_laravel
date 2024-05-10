@@ -19,7 +19,7 @@ enum  ItemType  :string
     public static function getValuesAsArray(): array
     {
         return array_flip(collect(self::cases())->mapWithKeys(function ($value) {
-            return [$value->value => $value->name];
+            return [__($value->value) => $value->name];
         })->toArray());
     }
 }

@@ -37,49 +37,62 @@ class AssetResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->label(__('AssetName'))
+                ->label(__('name'))
                     ->required()
                     ->maxLength(255),
                 Textarea::make('description')
+                    ->label(__('description'))
                     ->columnSpanFull(),
 
                 Select::make('category')
+                    ->label(__('Category'))
                     ->relationship('category', 'name')
                     ->searchable()
                     ->preload(),
 
                 Select::make('location')
+                ->label(__('Location'))
                     ->relationship('location', 'name')
                     ->searchable()
                     ->preload(),
                 Select::make('vendor')
+                ->label(__('vendor'))
+
                     ->relationship('vendor', 'name')
                     ->searchable()
                     ->preload(),
 
                 Select::make('status')
+                    ->label(__('status'))
                     ->options(AssetsStatus::getValuesAsArray()),
 
 
                 DatePicker::make('purchase_date')
+                ->label(__('purchase_date'))
                     ->required(),
                 Select::make('item_type')
+                    ->label(__('item_type'))
                     ->options(ItemType::getValuesAsArray()),
 
                 TextInput::make('purchase_price')
+                    ->label(__('purchase_price'))
                     ->required()
                     ->numeric(),
                 TextInput::make('serial_number')
+                    ->label(__('serial_number'))
                     ->maxLength(255),
                 TextInput::make('warranty_information')
+                    ->label(__('warranty_information'))
                     ->maxLength(255),
                     Select::make('depreciation_method')
+                    ->label(__('depreciation_method'))
                     ->options(DepreciationMethod::getValuesAsArray()),
 
 
             
 
                 TextInput::make('barcode')
+                    ->label(__('barcode'))
                     ->maxLength(255),
             ]);
     }
@@ -90,45 +103,59 @@ class AssetResource extends Resource
             ->columns([
 
                 TextColumn::make('name')
+                    ->label(__('name'))
                     ->searchable(),
                 TextColumn::make('category.name')
-                    ->label('Category')
+                
+                    ->label(__('Category'))
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('location.name')
-                    ->label('Location')
+                    ->label(__('Location'))
+
+
                     ->searchable(),
                 TextColumn::make('vendor.name')
+                    ->label(__('vendor'))
                     ->searchable(),
 
                 TextColumn::make('status')
+                    ->label(__('status'))
+                    ->formatStateUsing(fn (string $state): string => __($state))
 
                     ->searchable(),
                 TextColumn::make('purchase_date')
+                    ->label(__('purchase_date'))
                     ->date()
                     ->sortable(),
                 TextColumn::make('item_type')
+                ->formatStateUsing(fn (string $state): string => __($state))
+
+                    ->label(__('item_type'))
                     ->searchable(),
                 TextColumn::make('purchase_price')
+                    ->label(__('purchase_price'))
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('serial_number')
+                    ->label(__('serial_number'))
                     ->searchable(),
-                TextColumn::make('warranty_information')
-                    ->searchable(),
-                TextColumn::make('depreciation_method')
-                    ->searchable(),
+    
                 TextColumn::make('barcode')
+                    ->label(__('barcode'))
                     ->searchable(),
                 TextColumn::make('deleted_at')
+                    ->label(__('deleted_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
+                    ->label(__('created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label(__('updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
