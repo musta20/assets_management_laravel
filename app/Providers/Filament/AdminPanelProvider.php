@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -30,9 +31,11 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->font('Cairo', provider: GoogleFontProvider::class)
             ->colors([
-                'primary' => Color::Amber,
-            ])
+                'primary' => 'rgb(99, 102, 241)'
+                ])
+            ->brandLogoHeight('3rem')
 
             ->brandLogo(Vite::asset('resources/images/logo.svg'))
             ->favicon(Vite::asset('resources/images/logo.svg'))
