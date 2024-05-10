@@ -14,7 +14,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\SelectColumn;
 use Filament\Tables\Columns\SelectColumn as ColumnsSelectColumn;
@@ -38,6 +37,7 @@ class AssetResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
+                ->label(__('AssetName'))
                     ->required()
                     ->maxLength(255),
                 Textarea::make('description')
