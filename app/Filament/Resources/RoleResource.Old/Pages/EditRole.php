@@ -15,6 +15,7 @@ class EditRole extends EditRecord
     protected static string $resource = RoleResource::class;
 
 
+    
 protected function handleRecordUpdate(Model $record, array $data): Model
 {
 
@@ -37,10 +38,11 @@ protected function handleRecordUpdate(Model $record, array $data): Model
     return $record;
 }
 
+
+
 protected function mutateFormDataBeforeFill(array $data): array
 {
 
-   // dd($data);
    $Roel = Role::find($data['id']);
    $data[UserPermission::Users->value] = $Roel->hasPermissionTo(UserPermission::Users->value);
    $data[UserPermission::Setting->value] = $Roel->hasPermissionTo(UserPermission::Setting->value);

@@ -7,7 +7,7 @@ namespace App\Enums;
 
 enum  UserRole  :string
 {
-     case ADMIN = 'admin';
+     case ADMIN = 'Super Admin';
      case MANAGER = 'manager';
      case EMPLOYEE = 'employee';
      case TECHNICIAN = 'technician';

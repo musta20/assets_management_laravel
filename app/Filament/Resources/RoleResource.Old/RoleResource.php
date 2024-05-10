@@ -34,23 +34,27 @@ class RoleResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+         
             ->schema([
                 TextInput::make('name')
                 ->required()
                 ->maxLength(26),
 
+                Toggle::make(UserPermission::Users->value),
+                Toggle::make(UserPermission::Setting->value),
+                Toggle::make(UserPermission::Vendors->value),
+                Toggle::make(UserPermission::Roles->value),
 
-                permissionToggle::make(UserPermission::Users->value),
-                permissionToggle::make(UserPermission::Setting->value),
-                permissionToggle::make(UserPermission::Vendors->value),
-                permissionToggle::make(UserPermission::Roles->value),
-                permissionToggle::make(UserPermission::Departments->value),
-                permissionToggle::make(UserPermission::Locations->value),
-                permissionToggle::make(UserPermission::Messages->value),
-                permissionToggle::make(UserPermission::Assets->value),
-                permissionToggle::make(UserPermission::Categories->value),
-                permissionToggle::make(UserPermission::Maintenances->value),
+                Toggle::make(UserPermission::Departments->value),
+                Toggle::make(UserPermission::Locations->value),
+                Toggle::make(UserPermission::Messages->value),
+                Toggle::make(UserPermission::Assets->value),
+                
+                Toggle::make(UserPermission::Categories->value),
+                Toggle::make(UserPermission::Maintenances->value),
+                
             ]);
+
     }
 
     public static function table(Table $table): Table
@@ -59,14 +63,7 @@ class RoleResource extends Resource
             ->columns([
                 TextColumn::make('name'),
 
-                // ->beforeStateUpdated(function ($record, $state) {
-                //     // Runs before the state is saved to the database.
-                //    // dd($state);
-                //    $state= $record->hasPermissionTo(UserPermission::Setting->value);
-                // })
-                // ->afterStateUpdated(function ($record, $state) {
-                //     // Runs after the state is saved to the database.
-                // })
+            
 
                 StatusSwitcher::make(UserPermission::Users->value),
                 StatusSwitcher::make(UserPermission::Setting->value),
