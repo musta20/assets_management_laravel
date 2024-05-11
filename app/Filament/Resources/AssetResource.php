@@ -7,6 +7,7 @@ use App\Enums\DepreciationMethod;
 use App\Enums\ItemType;
 use App\Filament\Resources\AssetResource\Pages;
 use App\Filament\Resources\AssetResource\RelationManagers;
+use App\Filament\Resources\AssetResource\RelationManagers\MediaRelationManager;
 use App\Models\Asset;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -31,8 +32,6 @@ class AssetResource extends Resource
 
     public static function form(Form $form): Form
     {
-
-
 
         return $form
             ->schema([
@@ -178,7 +177,7 @@ class AssetResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MediaRelationManager::class
         ];
     }
 

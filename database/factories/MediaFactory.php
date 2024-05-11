@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\MediaType;
 use App\Models\Asset;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +20,7 @@ class MediaFactory extends Factory
     {
         return [
             'asset_id' => Asset::factory(),
-            'media_type' => $this->faker->randomElement(['image', 'video']),
+            'media_type' => $this->faker->randomElement(MediaType::cases())->value,
             'file_name' => $this->faker->word() . '.' . $this->faker->fileExtension(),
             'file_path' => $this->faker->filePath(),
             'description' => $this->faker->sentence(),
