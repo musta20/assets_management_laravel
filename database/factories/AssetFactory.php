@@ -33,6 +33,7 @@ class AssetFactory extends Factory
             'purchase_date' => $this->faker->date(),
             'purchase_price' => $this->faker->randomFloat(2, 100, 10000),
             'serial_number' => $this->faker->randomNumber(9),
+            'barcode' => $this->faker->ean8(),
             'warranty_information' => $this->faker->sentence(),
             'depreciation_method' => $this->faker->randomElement(DepreciationMethod::cases()),
         ];

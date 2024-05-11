@@ -9,6 +9,8 @@ use App\Filament\Resources\AssetResource\Pages;
 use App\Filament\Resources\AssetResource\RelationManagers;
 use App\Filament\Resources\AssetResource\RelationManagers\MediaRelationManager;
 use App\Models\Asset;
+use App\Tables\Columns\BarcodeColumn;
+use BladeUI\Icons\Components\Svg;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -17,12 +19,17 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Tables;
 use Filament\SelectColumn;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\SelectColumn as ColumnsSelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Milon\Barcode\DNS2D;
+use Milon\Barcode\Facades\DNS1DFacade;
+use Milon\Barcode\Facades\DNS2DFacade;
 
 class AssetResource extends Resource
 {
@@ -140,10 +147,10 @@ class AssetResource extends Resource
                     ->label(__('serial_number'))
                     ->searchable(),
     
-                TextColumn::make('barcode')
+                BarcodeColumn::make('barcode')
                     ->label(__('barcode'))
-                    ->searchable(),
-                TextColumn::make('deleted_at')
+
+,                TextColumn::make('deleted_at')
                     ->label(__('deleted_at'))
                     ->dateTime()
                     ->sortable()
@@ -163,7 +170,8 @@ class AssetResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ,
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

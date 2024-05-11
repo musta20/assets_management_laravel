@@ -9,4 +9,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAsset extends CreateRecord
 {
     protected static string $resource = AssetResource::class;
+
+    //DNS2D::getBarcodeHTML('4445645656', 'QRCODE');
 }

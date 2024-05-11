@@ -11,6 +11,7 @@
         "kenepa/translation-manager": "^4.0",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "milon/barcode": "^11.0",
         "spatie/laravel-permission": "^6.7"
     },
     "require-dev": {
