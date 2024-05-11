@@ -6,30 +6,24 @@ use App\Enums\AssetsStatus;
 use App\Enums\DepreciationMethod;
 use App\Enums\ItemType;
 use App\Filament\Resources\AssetResource\Pages;
-use App\Filament\Resources\AssetResource\RelationManagers;
 use App\Filament\Resources\AssetResource\RelationManagers\MediaRelationManager;
+use App\Infolists\Components\barcodeEntite;
 use App\Models\Asset;
 use App\Tables\Columns\BarcodeColumn;
-use BladeUI\Icons\Components\Svg;
-use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ViewEntry;
+use Filament\Infolists\Infolist;
 use Filament\Tables;
-use Filament\SelectColumn;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\SelectColumn as ColumnsSelectColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Milon\Barcode\DNS2D;
-use Milon\Barcode\Facades\DNS1DFacade;
-use Milon\Barcode\Facades\DNS2DFacade;
+
 
 class AssetResource extends Resource
 {
@@ -43,7 +37,7 @@ class AssetResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->label(__('name'))
+                    ->label(__('name'))
                     ->required()
                     ->maxLength(255),
                 Textarea::make('description')
@@ -57,12 +51,12 @@ class AssetResource extends Resource
                     ->preload(),
 
                 Select::make('location')
-                ->label(__('Location'))
+                    ->label(__('Location'))
                     ->relationship('location', 'name')
                     ->searchable()
                     ->preload(),
                 Select::make('vendor')
-                ->label(__('vendor'))
+                    ->label(__('vendor'))
 
                     ->relationship('vendor', 'name')
                     ->searchable()
@@ -74,7 +68,7 @@ class AssetResource extends Resource
 
 
                 DatePicker::make('purchase_date')
-                ->label(__('purchase_date'))
+                    ->label(__('purchase_date'))
                     ->required(),
                 Select::make('item_type')
                     ->label(__('item_type'))
@@ -84,22 +78,17 @@ class AssetResource extends Resource
                     ->label(__('purchase_price'))
                     ->required()
                     ->numeric(),
-                TextInput::make('serial_number')
-                    ->label(__('serial_number'))
-                    ->maxLength(255),
+          
                 TextInput::make('warranty_information')
                     ->label(__('warranty_information'))
                     ->maxLength(255),
-                    Select::make('depreciation_method')
+                Select::make('depreciation_method')
                     ->label(__('depreciation_method'))
                     ->options(DepreciationMethod::getValuesAsArray()),
 
 
-            
 
-                TextInput::make('barcode')
-                    ->label(__('barcode'))
-                    ->maxLength(255),
+
             ]);
     }
 
@@ -112,7 +101,7 @@ class AssetResource extends Resource
                     ->label(__('name'))
                     ->searchable(),
                 TextColumn::make('category.name')
-                
+
                     ->label(__('Category'))
                     ->sortable()
                     ->searchable(),
@@ -135,7 +124,7 @@ class AssetResource extends Resource
                     ->date()
                     ->sortable(),
                 TextColumn::make('item_type')
-                ->formatStateUsing(fn (string $state): string => __($state))
+                    ->formatStateUsing(fn (string $state): string => __($state))
 
                     ->label(__('item_type'))
                     ->searchable(),
@@ -146,11 +135,10 @@ class AssetResource extends Resource
                 TextColumn::make('serial_number')
                     ->label(__('serial_number'))
                     ->searchable(),
-    
-                BarcodeColumn::make('barcode')
-                    ->label(__('barcode'))
 
-,                TextColumn::make('deleted_at')
+                BarcodeColumn::make('barcode')
+                    ->label(__('barcode')),
+                TextColumn::make('deleted_at')
                     ->label(__('deleted_at'))
                     ->dateTime()
                     ->sortable()
@@ -170,8 +158,11 @@ class AssetResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                ,
+
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -179,6 +170,41 @@ class AssetResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
+            ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+
+        return $infolist
+            ->schema([
+
+                TextEntry::make('name')
+                    ->label(__('name')),
+
+                TextEntry::make('category.name')
+                    ->label(__('Category')),
+
+                barcodeEntite::make('barcode')
+                    ->label(__('barcode')),
+                TextEntry::make('location.name')
+                    ->label(__('Location')),
+                TextEntry::make('vendor.name')
+                    ->label(__('vendor')),
+                TextEntry::make('status')
+                ->formatStateUsing(fn (string $state): string => __($state))
+                    ->label(__('status')),
+                TextEntry::make('purchase_date')
+                    ->label(__('purchase_date')),
+                TextEntry::make('item_type')
+                    ->formatStateUsing(fn (string $state): string => __($state))
+                    ->label(__('item_type')),
+                TextEntry::make('purchase_price')
+                    ->label(__('purchase_price')),
+                TextEntry::make('serial_number')
+                    ->label(__('serial_number')),
+
+
             ]);
     }
 
@@ -194,6 +220,8 @@ class AssetResource extends Resource
         return [
             'index' => Pages\ListAssets::route('/'),
             'create' => Pages\CreateAsset::route('/create'),
+            'view' => Pages\ViewAsset::route('/{record}'),
+
             'edit' => Pages\EditAsset::route('/{record}/edit'),
         ];
     }

@@ -46,12 +46,14 @@ class MediaRelationManager extends RelationManager
             ->modelLabel(__('media'))
             ->columns([
                 Tables\Columns\ImageColumn::make('file_name')
+                    ->size('300px')
                     ->label(__('file name'))
                     ->disk('asset'),
                     Tables\Columns\TextColumn::make('description')
                     ->label(__('description')),
                     Tables\Columns\TextColumn::make('media_type')
-                    ->label(__('description')),
+                    ->formatStateUsing(fn (string $state): string => __($state))
+                    ->label(__('media type')),
 
 
             ])
