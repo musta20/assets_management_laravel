@@ -15,6 +15,7 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
+
         $Admin = Role::create(['name' => UserRole::ADMIN->value]);
 
         $Manger = Role::create(['name' => UserRole::MANAGER->value]);

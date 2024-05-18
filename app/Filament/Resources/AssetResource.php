@@ -44,18 +44,18 @@ class AssetResource extends Resource
                     ->label(__('description'))
                     ->columnSpanFull(),
 
-                Select::make('category')
+                Select::make('category_id')
                     ->label(__('Category'))
                     ->relationship('category', 'name')
                     ->searchable()
                     ->preload(),
 
-                Select::make('location')
+                Select::make('location_id')
                     ->label(__('Location'))
                     ->relationship('location', 'name')
                     ->searchable()
                     ->preload(),
-                Select::make('vendor')
+                Select::make('vendor_id')
                     ->label(__('vendor'))
 
                     ->relationship('vendor', 'name')

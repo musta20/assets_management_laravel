@@ -55,7 +55,9 @@ class UserFactory extends Factory
     public function withRole(string $role): static
     {
         return $this->afterMaking(function (User $user) use ($role) {
+
             $user->assignRole($role);
+        
         });
     }
 
