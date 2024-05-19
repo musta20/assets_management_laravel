@@ -28,7 +28,7 @@ class MaintenanceResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('asset')
+                Select::make('asset_id')
                 ->label(__('asset'))
                 ->relationship('asset', 'name')
                 ->searchable()
@@ -46,7 +46,7 @@ class MaintenanceResource extends Resource
 
                     
 
-                    Select::make('technician')
+                    Select::make('technician_id')
                     ->label(__('technician'))
                     ->relationship('technician', 'name')
                     ->searchable()
