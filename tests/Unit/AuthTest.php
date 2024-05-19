@@ -8,18 +8,14 @@ it(
     'profile page is displayed',
     function () {
 
-      
-        //dd(Permission::get())
-        $user = User::factory()->create();
+    $user = User::factory()->create();
         
-
         $user->assignRole(UserRole::ADMIN->value);
-
 
         $this->actingAs($user);
 
-
         $response = $this->get('/admin/assets');
+
         $response->assertSuccessful();
 
     }
