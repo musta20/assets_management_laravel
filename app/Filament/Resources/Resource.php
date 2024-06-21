@@ -4,19 +4,20 @@ namespace App\Filament\Resources;
 
 use Filament\Resources\Resource as FilamnetResource;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Translation\MessageSelector;
 use Illuminate\Support\Str;
+use Illuminate\Translation\MessageSelector;
+
 abstract class Resource extends FilamnetResource
 {
     public static function getModelLabel(): string
     {
         $modelLabel = static::getModelLabelFromClass(static::getModel());
 
-        $translationKey = "filament::resources/messages.$modelLabel.singular";
+        $translationKey = "filament::resources/messages.{$modelLabel}.singular";
 
-       // dd($translationKey);
-        return Lang::has($translationKey) 
-            ? __($translationKey) 
+        // dd($translationKey);
+        return Lang::has($translationKey)
+            ? __($translationKey)
             : $modelLabel;
     }
 
@@ -27,7 +28,7 @@ abstract class Resource extends FilamnetResource
         }
 
         $originalModelLabel = static::getModelLabelFromClass(static::getModel());
-        $pluralLabelKey = "filament::resources/messages.$originalModelLabel.plural";
+        $pluralLabelKey = "filament::resources/messages.{$originalModelLabel}.plural";
 
         if (Lang::has($pluralLabelKey)) {
             return __($pluralLabelKey);
@@ -49,9 +50,6 @@ abstract class Resource extends FilamnetResource
 
     protected static function localeHasPluralization(): bool
     {
-        return (new MessageSelector())->getPluralIndex(app()->getLocale(), 10) > 0;
+        return (new MessageSelector)->getPluralIndex(app()->getLocale(), 10) > 0;
     }
 }
-
-
-?>

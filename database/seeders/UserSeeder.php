@@ -17,8 +17,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-
-        $department  = Department::where('name', 'المديرية العامة')->firstOrFail();
+        $department = Department::where('name', 'المديرية العامة')->firstOrFail();
         $ItDepartment = Department::where('name', 'تقنية المعلومات')->firstOrFail();
         $allDeoartment = Department::get();
 
@@ -26,10 +25,9 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
-            'department_id' => $department->id
+            'department_id' => $department->id,
 
         ]);
-
 
         $musta = User::factory()->create([
             'name' => 'musta',
@@ -48,8 +46,8 @@ class UserSeeder extends Seeder
         User::factory()->count(10)->withDepartment($allDeoartment->random()->id)->withRole(UserRole::MANAGER->value)->create();
         User::factory()->count(10)->withDepartment($ItDepartment->id)->withRole(UserRole::TECHNICIAN->value)->create();
 
-                // excite artisan command to sync permissions
-                Artisan::call('permissions:sync');
-                Artisan::call('permissions:sync -P');
+        // excite artisan command to sync permissions
+        Artisan::call('permissions:sync');
+        Artisan::call('permissions:sync -P');
     }
 }

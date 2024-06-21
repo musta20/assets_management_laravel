@@ -2,16 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LocationResource\Pages;
-use App\Filament\Resources\LocationResource\RelationManagers;
+use App\Filament\Resources\LocationResource\Pages\CreateLocation;
+use App\Filament\Resources\LocationResource\Pages\EditLocation;
+use App\Filament\Resources\LocationResource\Pages\ListLocations;
 use App\Models\Location;
-use Filament\Forms;
-use Filament\Forms\Components\Select;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -36,9 +40,7 @@ class LocationResource extends Resource
                 TextInput::make('address')
                     ->label(__('address'))
                     ->maxLength(255),
-       
 
-             
             ]);
     }
 
@@ -46,15 +48,14 @@ class LocationResource extends Resource
     {
         return $table
             ->columns([
-       
+
                 TextColumn::make('name')
                     ->label(__('name'))
                     ->searchable(),
                 TextColumn::make('address')
                     ->label(__('address'))
                     ->searchable(),
-              
-  
+
                 TextColumn::make('deleted_at')
                     ->label(__('deleted'))
                     ->dateTime()
@@ -72,16 +73,16 @@ class LocationResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -96,9 +97,9 @@ class LocationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLocations::route('/'),
-            'create' => Pages\CreateLocation::route('/create'),
-            'edit' => Pages\EditLocation::route('/{record}/edit'),
+            'index' => ListLocations::route('/'),
+            'create' => CreateLocation::route('/create'),
+            'edit' => EditLocation::route('/{record}/edit'),
         ];
     }
 

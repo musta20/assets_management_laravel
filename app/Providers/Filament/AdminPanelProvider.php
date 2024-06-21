@@ -11,7 +11,6 @@ use Filament\Pages;
 use Filament\Pages\Auth\EditProfile;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -35,8 +34,8 @@ class AdminPanelProvider extends PanelProvider
             ->profile(EditProfile::class)
             ->font('Cairo', provider: GoogleFontProvider::class)
             ->colors([
-                'primary' => 'rgb(99, 102, 241)'
-                ])
+                'primary' => 'rgb(99, 102, 241)',
+            ])
             ->brandLogoHeight('3rem')
 
             ->brandLogo(Vite::asset('resources/images/logo.svg'))

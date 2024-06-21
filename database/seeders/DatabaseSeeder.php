@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             VendorSeeder::class,
             AssetSeeder::class,
             AssetsMediaSeeder::class,
-            MaintenancesSeeder::class
+            MaintenancesSeeder::class,
         ]);
 
     }

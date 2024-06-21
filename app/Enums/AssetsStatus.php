@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Enums;
 
 enum AssetsStatus: string
@@ -7,12 +8,8 @@ enum AssetsStatus: string
     case maintenance = 'maintenance';
     case disposed = 'disposed';
 
-
-    
     /**
      * Get all constants in a name => value array
-     *
-     * @return array
      */
     public static function getValuesAsArray(): array
     {
@@ -20,9 +17,4 @@ enum AssetsStatus: string
             return [__($value->value) => $value->name];
         })->toArray());
     }
-
 }
-
-
-
-?>

@@ -12,6 +12,7 @@ use App\Models\Location;
 use App\Models\User;
 use App\Models\Vendor;
 use Filament\Tables\Actions\DeleteAction;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertSoftDeleted;
@@ -31,7 +32,7 @@ it('allows users to create an asset', function () {
     $location = Location::factory()->create();
     $vendor = Vendor::factory()->create();
 
-    $assetData =[
+    $assetData = [
         'name' => fake()->word,
         'description' => fake()->sentence,
         'category_id' => $category->id,
@@ -44,7 +45,7 @@ it('allows users to create an asset', function () {
         'warranty_information' => fake()->sentence,
         'depreciation_method' => DepreciationMethod::STRAIGHTLINE->value,
     ];
-    
+
     livewire(CreateAsset::class)
         ->fillForm($assetData)
         ->call('create')
@@ -91,16 +92,9 @@ it('allows users to delete an asset', function () {
     actingAs($user);
     $asset = Asset::factory()->create();
     livewire(EditAsset::class,
-   [ 'record' => $asset->getRouteKey()]
+        ['record' => $asset->getRouteKey()]
     )
-    ->callAction(DeleteAction::class);
+        ->callAction(DeleteAction::class);
 
     assertSoftDeleted('assets', ['id' => $asset->id]);
 });
-
-
-
-
-
-
-?>

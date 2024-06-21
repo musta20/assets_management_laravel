@@ -6,7 +6,6 @@ use App\Models\Department;
 use App\Models\User;
 use Filament\Tables\Actions\DeleteBulkAction;
 
-use Filament\Tables\Actions\RestoreBulkAction;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertSoftDeleted;
@@ -58,17 +57,9 @@ it('allows deleting a department', function () {
     $department = Department::factory()->create();
 
     livewire(DepartmentResource\Pages\EditDepartment::class,
-    [ 'record' => $department->getRouteKey()])
+        ['record' => $department->getRouteKey()])
         ->callAction(DeleteBulkAction::class)
         ->assertSuccessful();
 
     assertSoftDeleted('departments', ['id' => $department->id]);
 });
-
-
-
-
-
-
-
-?>

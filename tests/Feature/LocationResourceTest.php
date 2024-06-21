@@ -5,9 +5,7 @@ use App\Filament\Resources\LocationResource;
 use App\Models\Location;
 use App\Models\User;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Actions\RestoreBulkAction;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertSoftDeleted;
@@ -63,14 +61,9 @@ it('allows deleting a location', function () {
     $location = Location::factory()->create();
 
     livewire(LocationResource\Pages\EditLocation::class,
-    [ 'record' => $location->getRouteKey()])
+        ['record' => $location->getRouteKey()])
         ->callAction(DeleteBulkAction::class)
         ->assertSuccessful();
 
     assertSoftDeleted('locations', ['id' => $location->id]);
 });
-
-
-
-
-?>

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +14,7 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $arrayCategory = SeederDataSet::categoriesArray();
-        $newCategory =  Category::factory()
+        $newCategory = Category::factory()
             ->count(count($arrayCategory))
             ->sequence(fn (Sequence $sequence) => $arrayCategory[$sequence->index])
             ->create();
@@ -24,17 +23,16 @@ class CategorySeeder extends Seeder
 
         $scandchild = [];
 
-
         for ($index = 0; $index < count($newCategory); $index++) {
 
-            if (count($newCategory) / 3  >= $index + 1) {
+            if (count($newCategory) / 3 >= $index + 1) {
 
                 $firstchild[] = $newCategory[$index];
             }
 
             if (count($scandchild) < 3) {
 
-                if (!in_array($newCategory[$index], $firstchild)) {
+                if (! in_array($newCategory[$index], $firstchild)) {
                     $scandchild[] = $newCategory[$index];
                 }
             }
@@ -49,8 +47,6 @@ class CategorySeeder extends Seeder
             }
         }
 
-
-
         // foreach ($newCategory as $key => $category) {
 
         //     if($key < count($firstchild)){
@@ -61,15 +57,12 @@ class CategorySeeder extends Seeder
         //     }
 
         // }
-        // 1 2 3 
-        // 4 5 6 
+        // 1 2 3
+        // 4 5 6
         // 7 8 9
         //
         //
         //
-
-
-
 
     }
 }

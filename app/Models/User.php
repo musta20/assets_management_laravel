@@ -15,13 +15,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory, HasUlids, Notifiable, HasRoles, HasSuperAdmin;
+    use HasFactory, HasRoles, HasSuperAdmin, HasUlids, Notifiable;
 
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return str_ends_with($this->email, config('app.domain')) && $this->hasVerifiedEmail();
-    }
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -43,6 +38,11 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, config('app.domain')) && $this->hasVerifiedEmail();
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -55,8 +55,4 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
         ];
     }
-
-    
-
-    
 }

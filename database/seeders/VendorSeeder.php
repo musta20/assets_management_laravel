@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Vendor;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -14,12 +13,12 @@ class VendorSeeder extends Seeder
      */
     public function run(): void
     {
-        $arrayVendor = SeederDataSet::VenderBrandsArray();
+        $arrayVendor = SeederDataSet::venderBrandsArray();
 
-            Vendor::factory()
+        Vendor::factory()
             ->count(count($arrayVendor))
             ->sequence(fn (Sequence $sequence) => $arrayVendor[$sequence->index])
             ->create();
-       
+
     }
 }

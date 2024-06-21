@@ -5,25 +5,32 @@ namespace App\Filament\Resources;
 use App\Enums\AssetsStatus;
 use App\Enums\DepreciationMethod;
 use App\Enums\ItemType;
-use App\Filament\Resources\AssetResource\Pages;
+use App\Filament\Resources\AssetResource\Pages\CreateAsset;
+use App\Filament\Resources\AssetResource\Pages\EditAsset;
+use App\Filament\Resources\AssetResource\Pages\ListAssets;
+use App\Filament\Resources\AssetResource\Pages\ViewAsset;
 use App\Filament\Resources\AssetResource\RelationManagers\MediaRelationManager;
-use App\Infolists\Components\barcodeEntite;
+use App\Infolists\Components\Barcodeentite;
 use App\Models\Asset;
 use App\Tables\Columns\BarcodeColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Components\ViewEntry;
 use Filament\Infolists\Infolist;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
 
 class AssetResource extends Resource
 {
@@ -66,7 +73,6 @@ class AssetResource extends Resource
                     ->label(__('status'))
                     ->options(AssetsStatus::getValuesAsArray()),
 
-
                 DatePicker::make('purchase_date')
                     ->label(__('purchase_date'))
                     ->required(),
@@ -78,16 +84,13 @@ class AssetResource extends Resource
                     ->label(__('purchase_price'))
                     ->required()
                     ->numeric(),
-          
+
                 TextInput::make('warranty_information')
                     ->label(__('warranty_information'))
                     ->maxLength(255),
                 Select::make('depreciation_method')
                     ->label(__('depreciation_method'))
                     ->options(DepreciationMethod::getValuesAsArray()),
-
-
-
 
             ]);
     }
@@ -107,7 +110,6 @@ class AssetResource extends Resource
                     ->searchable(),
                 TextColumn::make('location.name')
                     ->label(__('Location'))
-
 
                     ->searchable(),
                 TextColumn::make('vendor.name')
@@ -155,20 +157,19 @@ class AssetResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
             ->actions([
 
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make()
-
+                EditAction::make(),
+                ViewAction::make(),
 
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -185,14 +186,14 @@ class AssetResource extends Resource
                 TextEntry::make('category.name')
                     ->label(__('Category')),
 
-                barcodeEntite::make('barcode')
+                Barcodeentite::make('barcode')
                     ->label(__('barcode')),
                 TextEntry::make('location.name')
                     ->label(__('Location')),
                 TextEntry::make('vendor.name')
                     ->label(__('vendor')),
                 TextEntry::make('status')
-                ->formatStateUsing(fn (string $state): string => __($state))
+                    ->formatStateUsing(fn (string $state): string => __($state))
                     ->label(__('status')),
                 TextEntry::make('purchase_date')
                     ->label(__('purchase_date')),
@@ -204,25 +205,23 @@ class AssetResource extends Resource
                 TextEntry::make('serial_number')
                     ->label(__('serial_number')),
 
-
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            MediaRelationManager::class
+            MediaRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAssets::route('/'),
-            'create' => Pages\CreateAsset::route('/create'),
-            'view' => Pages\ViewAsset::route('/{record}'),
-
-            'edit' => Pages\EditAsset::route('/{record}/edit'),
+            'index' => ListAssets::route('/'),
+            'create' => CreateAsset::route('/create'),
+            'view' => ViewAsset::route('/{record}'),
+            'edit' => EditAsset::route('/{record}/edit'),
         ];
     }
 

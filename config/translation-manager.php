@@ -14,8 +14,8 @@ return [
 
     'available_locales' => [
         ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
-        ['code' => 'nl', 'name' => 'Nederlands', 'flag' => 'nl'] ,
-        ['code' => 'ar', 'name' => 'Egypt', 'flag' => 'eg'] 
+        ['code' => 'nl', 'name' => 'Nederlands', 'flag' => 'nl'],
+        ['code' => 'ar', 'name' => 'Egypt', 'flag' => 'eg'],
     ],
 
     /*

@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Department extends Model
 {
     use HasFactory, HasUlids, SoftDeletes;
-    
+
     protected $fillable = ['name', 'description'];
 
-    
-    
 }

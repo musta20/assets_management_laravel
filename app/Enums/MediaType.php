@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-
-enum  MediaType  :string
+enum MediaType: string
 {
+    case IMAGE = 'image';
+    case VIDEO = 'video';
 
-     case IMAGE = 'image';
-     case VIDEO = 'video';
-
-         
     /**
      * Get all constants in a name => value array
-     *
-     * @return array
      */
     public static function getValuesAsArray(): array
     {
@@ -24,6 +19,3 @@ enum  MediaType  :string
         })->toArray());
     }
 }
-
-
-?>

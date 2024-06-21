@@ -12,8 +12,8 @@ class Role extends SpatieRole
 {
     use HasFactory,HasUlids,RolePermissionStatus;
 
-
-    public function CanUsers(): bool{
+    public function canUsers(): bool
+    {
 
         return $this->hasPermissionTo(UserPermission::Users->value);
     }

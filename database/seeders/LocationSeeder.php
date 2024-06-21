@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Location;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +13,7 @@ class LocationSeeder extends Seeder
      */
     public function run(): void
     {
-        $LocationsArray = SeederDataSet::LocationsArray();
+        $LocationsArray = SeederDataSet::locationsArray();
 
         Location::factory()
             ->count(count($LocationsArray))

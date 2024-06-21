@@ -12,7 +12,8 @@ use Spatie\Permission\PermissionRegistrar;
 
 abstract class TestCase extends BaseTestCase
 {
-use RefreshDatabase;
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
 
@@ -23,12 +24,10 @@ use RefreshDatabase;
 
         $this->artisan('permissions:sync');
 
-     //  (new TestSeeder())->run();
+        //  (new TestSeeder())->run();
 
-
-
-       // $this->app->make(PermissionRegistrar::class)->registerPermissions();
-       //app()[\Spatie\Permission\PermissionRegistrar::class]->registerPermissions(befor);
+        // $this->app->make(PermissionRegistrar::class)->registerPermissions();
+        //app()[\Spatie\Permission\PermissionRegistrar::class]->registerPermissions(befor);
 
         // Event::listen(DatabaseRefreshed::class, function () {
         //     echo('database refreshed');

@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('maintenances', function (Blueprint $table) {
@@ -21,12 +18,9 @@ return new class extends Migration
             $table->decimal('cost', 10, 2)->nullable(); // Optional cost with decimal precision
             $table->timestamps(); // created_at and updated_at timestamps
             $table->softDeletes();
-            });
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('maintenances');

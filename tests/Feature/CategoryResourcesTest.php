@@ -5,14 +5,9 @@ use App\Filament\Resources\CategoryResource;
 use App\Models\Category;
 use App\Models\User;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Actions\RestoreBulkAction;
-use function Pest\Laravel\actingAs;
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertDatabaseMissing;
-use function Pest\Laravel\assertSoftDeleted;
 
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertSoftDeleted;
 use function Pest\Livewire\livewire;
 
 it('allows creating a category', function () {
@@ -65,12 +60,11 @@ it('allows deleting a category', function () {
     $category = Category::factory()->create();
 
     livewire(CategoryResource\Pages\EditCategory::class,
-    [ 'record' => $category->getRouteKey()]
+        ['record' => $category->getRouteKey()]
     )
-    
+
         ->callAction(DeleteBulkAction::class)
         ->assertSuccessful();
 
     assertSoftDeleted('categories', ['id' => $category->id]);
 });
-

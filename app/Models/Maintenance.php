@@ -12,12 +12,12 @@ class Maintenance extends Model
     use HasFactory,HasUlids,SoftDeletes;
 
     protected $fillable = [
-        'asset_id', 
-        'date', 
-        'type', 
-        'description', 
-        'technician_id', 
-        'cost'
+        'asset_id',
+        'date',
+        'type',
+        'description',
+        'technician_id',
+        'cost',
     ];
 
     public function asset()

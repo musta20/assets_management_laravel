@@ -3,17 +3,22 @@
 namespace App\Filament\Resources;
 
 use App\Enums\MaintenanceType;
-use App\Filament\Resources\MaintenanceResource\Pages;
-use App\Filament\Resources\MaintenanceResource\RelationManagers;
+use App\Filament\Resources\MaintenanceResource\Pages\CreateMaintenance;
+use App\Filament\Resources\MaintenanceResource\Pages\EditMaintenance;
+use App\Filament\Resources\MaintenanceResource\Pages\ListMaintenances;
 use App\Models\Maintenance;
-use Filament\Forms;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -29,29 +34,26 @@ class MaintenanceResource extends Resource
         return $form
             ->schema([
                 Select::make('asset_id')
-                ->label(__('asset'))
-                ->relationship('asset', 'name')
-                ->searchable()
-                ->preload(),
+                    ->label(__('asset'))
+                    ->relationship('asset', 'name')
+                    ->searchable()
+                    ->preload(),
                 Select::make('type')
-                ->label(__('Maintenance type'))
-                ->options(MaintenanceType::getValuesAsArray()),
+                    ->label(__('Maintenance type'))
+                    ->options(MaintenanceType::getValuesAsArray()),
                 DatePicker::make('date')
                     ->label(__('date'))
                     ->required(),
-     
+
                 Textarea::make('description')
                     ->label(__('description'))
                     ->columnSpanFull(),
 
-                    
-
-                    Select::make('technician_id')
+                Select::make('technician_id')
                     ->label(__('technician'))
                     ->relationship('technician', 'name')
                     ->searchable()
                     ->preload(),
-
 
                 TextInput::make('cost')
                     ->label(__('cost'))
@@ -65,8 +67,8 @@ class MaintenanceResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('technician.name')
-                ->label(__('technician'))
-                ->searchable(),
+                    ->label(__('technician'))
+                    ->searchable(),
                 TextColumn::make('asset.name')
                     ->label(__('asset'))
                     ->searchable(),
@@ -99,16 +101,16 @@ class MaintenanceResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -123,9 +125,9 @@ class MaintenanceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMaintenances::route('/'),
-            'create' => Pages\CreateMaintenance::route('/create'),
-            'edit' => Pages\EditMaintenance::route('/{record}/edit'),
+            'index' => ListMaintenances::route('/'),
+            'create' => CreateMaintenance::route('/create'),
+            'edit' => EditMaintenance::route('/{record}/edit'),
         ];
     }
 

@@ -3,15 +3,18 @@
 namespace App\Filament\Resources\AssetResource\RelationManagers;
 
 use App\Enums\MediaType;
-use Filament\Forms;
+use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MediaRelationManager extends RelationManager
 {
@@ -29,12 +32,11 @@ class MediaRelationManager extends RelationManager
             ->schema([
 
                 TextInput::make('description')
-                ->label(__('description')),
+                    ->label(__('description')),
                 FileUpload::make('file_name')
                     ->label(__('file name'))
                     ->disk('asset')
-                    ->required()
-
+                    ->required(),
 
             ]);
     }
@@ -45,41 +47,40 @@ class MediaRelationManager extends RelationManager
             ->recordTitleAttribute('file name')
             ->modelLabel(__('media'))
             ->columns([
-                Tables\Columns\ImageColumn::make('file_name')
+                ImageColumn::make('file_name')
                     ->size('300px')
                     ->label(__('file name'))
                     ->disk('asset'),
-                    Tables\Columns\TextColumn::make('description')
+                TextColumn::make('description')
                     ->label(__('description')),
-                    Tables\Columns\TextColumn::make('media_type')
+                TextColumn::make('media_type')
                     ->formatStateUsing(fn (string $state): string => __($state))
                     ->label(__('media type')),
-
 
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->mutateFormDataUsing(function (array $data): array {
+                CreateAction::make()->mutateFormDataUsing(function (array $data): array {
                     $ext = pathinfo($data['file_name'], PATHINFO_EXTENSION);
                     if (in_array($ext, ['mp4', 'avi'])) {
                         $data['media_type'] = MediaType::VIDEO->value;
                     } else {
                         $data['media_type'] = MediaType::IMAGE->value;
                     }
-                    $data['file_path'] = "asset";
+                    $data['file_path'] = 'asset';
 
                     return $data;
-                })
+                }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

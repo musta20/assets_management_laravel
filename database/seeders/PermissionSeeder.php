@@ -24,7 +24,6 @@ class PermissionSeeder extends Seeder
 
         $Technician = Role::create(['name' => UserRole::TECHNICIAN->value]);
 
-
         // $Categories = Permission::create(['name' => UserPermission::Categories->value]);
 
         // $Setting = Permission::create(['name' => UserPermission::Setting->value]);
@@ -45,9 +44,6 @@ class PermissionSeeder extends Seeder
 
         // $Roles = Permission::create(['name' => UserPermission::Roles->value]);
 
-      
-
-        
         // $Admin->givePermissionTo($Setting);
         // $Admin->givePermissionTo($Categories);
         // $Admin->givePermissionTo($Users);
@@ -59,7 +55,6 @@ class PermissionSeeder extends Seeder
         // $Admin->givePermissionTo($Vendors);
         // $Admin->givePermissionTo($Messages);
 
-
         // $Manger->givePermissionTo($Categories);
         // $Manger->givePermissionTo($Assets);
         // $Manger->givePermissionTo($Departments);
@@ -67,14 +62,13 @@ class PermissionSeeder extends Seeder
         // $Manger->givePermissionTo($Messages);
         // $Manger->givePermissionTo($Vendors);
         // $Manger->givePermissionTo($Maintenances);
-    
+
         // $Employee->givePermissionTo($Messages);
         // $Employee->givePermissionTo($Assets);
-
 
         // $Technician->givePermissionTo($Messages);
         // $Technician->givePermissionTo($Maintenances);
         // $Technician->givePermissionTo($Assets);
- 
+
     }
 }

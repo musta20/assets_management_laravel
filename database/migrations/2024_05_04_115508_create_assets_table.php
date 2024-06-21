@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('assets', function (Blueprint $table) {
@@ -27,16 +24,13 @@ return new class extends Migration
             $table->string('serial_number')->nullable(); // Optional serial number
             $table->string('warranty_information')->nullable(); // Optional warranty details
             $table->string('depreciation_method')->nullable(); // Depreciation method (e.g., straight-line)
-            $table->string('barcode')->nullable(); 
+            $table->string('barcode')->nullable();
             $table->softDeletes();
             $table->timestamps(); // Created_at and updated_at timestamps
 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('assets');

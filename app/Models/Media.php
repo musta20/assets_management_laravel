@@ -11,13 +11,12 @@ class Media extends Model
 {
     use HasFactory, HasUlids, SoftDeletes;
 
-
     protected $fillable = [
-        'asset_id', 
-        'media_type', 
-        'file_name', 
-        'file_path', 
-        'description'
+        'asset_id',
+        'media_type',
+        'file_name',
+        'file_path',
+        'description',
     ];
 
     public function asset()

@@ -1,18 +1,15 @@
 <?php
+
 use App\Enums\UserRole;
 use App\Filament\Resources\VendorResource;
 use App\Models\User;
 use App\Models\Vendor;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Actions\RestoreBulkAction;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertDatabaseMissing;
-use function Pest\Livewire\livewire;
 use function Pest\Laravel\assertSoftDeleted;
-
+use function Pest\Livewire\livewire;
 
 it('allows creating a vendor', function () {
     $user = User::factory()->withRole(UserRole::ADMIN->value)->create();
@@ -77,8 +74,5 @@ it('allows deleting a vendor', function () {
         ->assertSuccessful();
 
     assertSoftDeleted('vendors', ['id' => $vendor->id]);
-    
+
 });
-
-
-?>

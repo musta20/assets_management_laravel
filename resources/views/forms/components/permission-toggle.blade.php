@@ -2,15 +2,12 @@
     :component="$getFieldWrapperView()"
     :field="$field"
 >
-    <div 
-    x-data="{ state: {{$getRecord()->hasPermissionTo($PermissionName()) ? 'true' : 'false' }} }"
+    <div
+    x-data="{ state: {{ $getRecord()->hasPermissionTo($permissionName()) ? 'true' : 'false' }} }"
     >
-    {{$getRecord()->hasPermissionTo($PermissionName())}}
-    {{-- n x-data="{
-        state: $wire.$entangle('{{$getRecord()->hasPermissionTo($PermissionName())}}',false) ,
-    }"  --}}
-  
-  
+    {{ $getRecord()->hasPermissionTo($permissionName()) }}
+
+
         <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-3" for="data.ss">
             <button
                     x-bind:aria-checked="state?.toString()" x-on:click="state = ! state" x-bind:class="
@@ -30,24 +27,18 @@
                                 'opacity-0 ease-out duration-100': state,
                                 'opacity-100 ease-in duration-200': ! state,
                             }">
-                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
                         </span>
-        
+
                         <span class="absolute inset-0 flex h-full w-full items-center justify-center transition-opacity opacity-0 ease-out duration-100" aria-hidden="true" x-bind:class="{
                                 'opacity-100 ease-in duration-200': state,
                                 'opacity-0 ease-out duration-100': ! state,
                             }">
-                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
                         </span>
                     </span>
                 </button>
-        
-            {{-- <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
-                
-                Ss<!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
-            </span> --}}
-        
-            
+
+
+
         </label>
 
 
@@ -55,36 +46,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- Interact with the `state` property in Alpine.js -->
-{{-- 
-        @if ($getRecord()->hasPermissionTo($PermissionName()))
-
-        <input type="checkbox" class="filament-forms-toggle-component" checked id="">
-
-        @else
-
-        <input type="checkbox"  id="">
-
-        @endif --}}
 
     </div>
 </x-dynamic-component>
