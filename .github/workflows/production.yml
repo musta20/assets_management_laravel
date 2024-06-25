@@ -118,7 +118,7 @@ jobs:
             cd ${{ secrets.VPS_DIR }}
             git fetch origin  # Fetch remote changes
             git checkout production # Checkout your local branch
-            git pull --force origin/production  # Merge remote 'main' branch into your local branch
+            git pull   # Merge remote 'main' branch into your local branch
              
   
       - name: Deploy successful
