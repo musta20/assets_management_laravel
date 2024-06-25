@@ -35,6 +35,8 @@ jobs:
           touch database/database.sqlite
       - name: Build assets using vite for testing
         run: yarn vite build
+      - name: Generate key
+        run: php artisan key:generate
       - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
         env:
           DB_CONNECTION: sqlite
