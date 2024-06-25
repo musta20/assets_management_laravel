@@ -115,10 +115,10 @@ jobs:
           port: 22 # Adjust if needed
           script: |
             # Update the project directory on the VPS
-            cd ./deploy/laravel/assets_management_laravel
+            cd ${{ secrets.VPS_DIR }}
             git fetch origin  # Fetch remote changes
             git checkout production # Checkout your local branch
-            git merge origin/production  # Merge remote 'main' branch into your local branch
+            git pull --force origin/production  # Merge remote 'main' branch into your local branch
              
   
       - name: Deploy successful
