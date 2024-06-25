@@ -79,7 +79,7 @@ jobs:
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add --force public/
+          git add --force .
           if [[ `git status --porcelain` ]]; then
             echo "OK: Changes detected."
             git commit -m "Updated assets" -a
@@ -115,7 +115,7 @@ jobs:
           port: 22 # Adjust if needed
           script: |
             # Update the project directory on the VPS
-            cd ${{ secrets.VPS_DIR }}
+            cd ./deploy/laravel/assets_management_laravel
             git fetch origin  # Fetch remote changes
             git checkout production # Checkout your local branch
             git merge origin/production  # Merge remote 'main' branch into your local branch
