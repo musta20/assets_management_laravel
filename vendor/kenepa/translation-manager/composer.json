@@ -1,0 +1,41 @@
+{
+    "name": "kenepa/translation-manager",
+    "description": "Manage your application's translation strings in Filament.",
+    "keywords": [
+        "Kenepa",
+        "laravel",
+        "filament",
+        "localization",
+        "translation"
+    ],
+    "homepage": "https://github.com/kenape/translation-manager",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kenepa\\TranslationManager\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "filament/filament": "^3.0",
+        "filament/notifications": "^3.0.0",
+        "spatie/laravel-package-tools": "^1.15.0",
+        "spatie/laravel-translation-loader": "^2.7",
+        "stijnvanouplines/blade-country-flags": "^1.0"
+    },
+    "require-dev": {
+        "tightenco/duster": "^2.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kenepa\\TranslationManager\\TranslationManagerProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
