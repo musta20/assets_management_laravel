@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-CRQpXlQJ.css",
+    "file": "assets/app-DOjAcRSU.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -8,6 +8,10 @@
     "file": "assets/theme-QyYbx0fi.css",
     "src": "resources/css/filament/admin/theme.css",
     "isEntry": true
+  },
+  "resources/images/Screenshot from 2024-06-26 23-47-15.png": {
+    "file": "assets/Screenshot from 2024-06-26 23-47-15-ChBlAsHx.png",
+    "src": "resources/images/Screenshot from 2024-06-26 23-47-15.png"
   },
   "resources/images/logo.svg": {
     "file": "assets/logo-CnqewYl7.svg",
